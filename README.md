@@ -5,3 +5,5 @@
 ## [Lockboxes](0x00-lockboxes/README.md)
 
 ## [Sorted linked list](0x01-insert_in_sorted_linked_list/README.md)
+
+## [Heap insert](0x02-heap_insert/README.md)
