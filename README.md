@@ -9,3 +9,5 @@
 ## [Heap insert](0x02-heap_insert/README.md)
 
 ## [Minimum operations](0x03-minimum_operations/README.md)
+
+## [Sandpiles](0x04-sandpiles/README.md)
