@@ -11,3 +11,5 @@
 ## [Minimum operations](0x03-minimum_operations/README.md)
 
 ## [Sandpiles](0x04-sandpiles/README.md)
+
+## [Linked list palindrome](0x05-linked_list_palindrome/README.md)
