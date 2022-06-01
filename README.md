@@ -13,3 +13,5 @@
 ## [Sandpiles](0x04-sandpiles/README.md)
 
 ## [Linked list palindrome](0x05-linked_list_palindrome/README.md)
+
+## [Log parsing](0x06-log_parsing/README.md)
