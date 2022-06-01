@@ -2,20 +2,20 @@
 """
     Module that parses a log and prints stats to stdout
 """
+import re
 from sys import stdin
 
 count = 0
 global_size = 0
 status_codes = {
-    "200": 0, "301": 0, "401": 0,
-    "403": 0, "404": 0, "405": 0,
-    "500": 0
+    "200": 0, "301": 0, "400": 0, "401": 0,
+    "403": 0, "404": 0, "405": 0, "500": 0
 }
 
 
 def fetch_data(line):
     """
-        Parses the line and returns the status code and file size
+        Fetch the data
     """
 
     matches = line.split()
@@ -25,11 +25,9 @@ def fetch_data(line):
 
 def display_data():
     """
-        Prints the stats to stdout
+        Display the data
     """
-
     print("File size: {}".format(global_size))
-
     for status in sorted(status_codes.keys()):
         if status_codes[status]:
             print("{}: {}".format(status, status_codes[status]))
@@ -41,10 +39,9 @@ if __name__ == "__main__":
             try:
                 status_code, file_size = fetch_data(line)
                 global_size += int(file_size)
-
-                if (status_code in status_codes):
+                if status_code in status_codes:
                     status_codes[status_code] += 1
-            except Exception:
+            except:
                 pass
             if count == 9:
                 display_data()
