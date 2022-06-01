@@ -1,116 +1,47 @@
 #!/usr/bin/python3
 """
-    Script to count the number of lines treated for each status code
-    in a log file.
+Module that parses a log and prints stats to stdout
 """
+from sys import stdin
 
-import sys
-import re
-import signal
+status_codes = {
+    "200": 0,
+    "301": 0,
+    "400": 0,
+    "401": 0,
+    "403": 0,
+    "404": 0,
+    "405": 0,
+    "500": 0
+}
 
-
-class LogParser:
-    """
-        LogParser class.
-
-        Attributes:
-            line_counter: line counter
-            status_code_counter: counter for each status code
-            global_file_size: global file size treated
-    """
-
-    status_code_counter = {
-        "200": 0, "301": 0, "400": 0, "401": 0,
-        "403": 0, "404": 0, "405": 0, "500": 0
-    }
-    global_file_size = 0
-    line_counter = 0
-
-    def fetch_data(self, line):
-        """
-            Fetch data from a line.
-
-            Args:
-                line: line to parse
-
-            Returns:
-                status_code: status code of the log line
-                file_size: file size of the log line
-        """
-
-        pattern = r'^.*([0-9]{3}) ([0-9]*)$'
-
-        matches = re.search(
-            pattern,
-            line
-        )
-
-        return matches.groups()
-
-    def display_data(self):
-        """
-            Display data.
-        """
-
-        # Print global file size managed
-        print("File size: {}".format(self.global_file_size))
-
-        # Print status code counter for each status code
-        for status_code, count in sorted(self.status_code_counter.items()):
-            print("{}: {}".format(status_code, count))
-
-    def signal_handler(self, signum, frame):
-        """
-            Signal handler.
-
-            Args:
-                signum: signal number
-                frame: frame
-        """
-
-        self.display_data()
-        exit(1)
-
-    def run(self, line):
-        """
-            Run the parser.
-        """
-
-        status_code, file_size = self.fetch_data(line)
-
-        if status_code in self.status_code_counter:
-            self.status_code_counter[status_code] += 1
-
-        self.global_file_size += int(file_size)
-
-        if self.line_counter % 10 == 0 and self.line_counter != 0:
-            self.display_data()
-
-        self.line_counter += 1
-
-    def signal_handler(self):
-        """
-            Signal handler.
-
-            Args:
-                signum: signal number
-                frame: frame
-        """
-
-        self.display_data()
-        exit(1)
+size = 0
 
 
-if __name__ == '__main__':
-    parser = LogParser()
+def print_stats():
+    """Prints the accumulated logs"""
+    print("File size: {}".format(size))
+    for status in sorted(status_codes.keys()):
+        if status_codes[status]:
+            print("{}: {}".format(status, status_codes[status]))
 
+
+if __name__ == "__main__":
+    count = 0
     try:
-        for line in sys.stdin:
+        for line in stdin:
             try:
-                parser.run(line)
-            except Exception:
+                items = line.split()
+                size += int(items[-1])
+                if items[-2] in status_codes:
+                    status_codes[items[-2]] += 1
+            except:
                 pass
+            if count == 9:
+                print_stats()
+                count = -1
+            count += 1
     except KeyboardInterrupt:
-        parser.display_data()
+        print_stats()
         raise
-    parser.display_data()
+    print_stats()
