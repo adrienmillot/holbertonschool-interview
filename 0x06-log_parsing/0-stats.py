@@ -35,29 +35,21 @@ def display_data():
             print("{}: {}".format(status, status_codes[status]))
 
 
-def run():
-    """
-        Main function
-    """
-
-    try:
-        status_code, file_size = fetch_data(line)
-        global_size += int(file_size)
-
-        if (status_code in status_codes):
-            status_codes[status_code] += 1
-    except Exception:
-        pass
-    if count == 9:
-        display_data()
-        count = -1
-    count += 1
-
-
 if __name__ == "__main__":
     try:
         for line in stdin:
-            run(line)
+            try:
+                status_code, file_size = fetch_data(line)
+                global_size += int(file_size)
+
+                if (status_code in status_codes):
+                    status_codes[status_code] += 1
+            except Exception:
+                pass
+            if count == 9:
+                display_data()
+                count = -1
+            count += 1
     except KeyboardInterrupt:
         display_data()
         raise
