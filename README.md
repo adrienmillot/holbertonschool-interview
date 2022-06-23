@@ -17,3 +17,7 @@
 ## [Log parsing](0x06-log_parsing/README.md)
 
 ## [Linked list cycle](0x07-linked_list_cycle/README.md)
+
+## [Palindrome integer](0x08-palindrome_integer/README.md)
+
+## [UTF-8 Validation](0x09-utf8_validation/README.md)
