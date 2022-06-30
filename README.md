@@ -21,3 +21,5 @@
 ## [Palindrome integer](0x08-palindrome_integer/README.md)
 
 ## [UTF-8 Validation](0x09-utf8_validation/README.md)
+
+## [2048](0x0A-slide_line/README.md)
