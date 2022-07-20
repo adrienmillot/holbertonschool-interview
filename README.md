@@ -23,3 +23,7 @@
 ## [UTF-8 Validation](0x09-utf8_validation/README.md)
 
 ## [2048](0x0A-slide_line/README.md)
+
+## [Menger sponge](0x0B-menger/README.md)
+
+## [N-Queen](0x0C-nqueens/README.md)
